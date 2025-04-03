@@ -1,0 +1,18 @@
+# Docker files
+/pgadmin_data/
+/postgres_data/
+
+# IDE files
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# System files
+.env
+*.swp
+*.swo

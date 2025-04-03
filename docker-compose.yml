@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: phonebook
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: phonebook_db
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4:6.21
+    environment:
+      PGADMIN_DEFAULT_EMAIL: skachkov-yuriy@mail.ru
+      PGADMIN_DEFAULT_PASSWORD: Admin123
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - db
+  app:
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    build: ./app
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  pgadmin_data:
+  postgres_data:
+
+
+
+
+
+
+
+
+
